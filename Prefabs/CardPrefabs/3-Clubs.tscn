@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cadne42r8vrn2"]
+
+[ext_resource type="Texture2D" uid="uid://b1wdla502md60" path="res://Sprites/PlayingCards/Clovers_3_white.png" id="1_pyw76"]
+[ext_resource type="Script" path="res://Scripts/CardData.gd" id="2_xwllj"]
+
+[node name="Clovers3White" type="Sprite2D"]
+position = Vector2(629, 189)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_pyw76")
+metadata/iDist = 3
+metadata/jDist = 0
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_xwllj")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-290, -460, 280, -460, 320, -415, 320, 405, 300, 455, -290, 460, -325, 415, -320, -420)

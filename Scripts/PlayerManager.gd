@@ -6,6 +6,17 @@ var UIscale;
 var startX;
 var startY
 
+var moveRule = [
+			[2,1],
+			[2,-1],
+			[-2,1],
+			[-2,-1],
+			[1,2],
+			[1,-2],
+			[-1,2],
+			[-1,-2],
+			];
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -20,6 +31,12 @@ func setPosition(startX,startY,i,j,scale):
 	position.x = startX-(i-j)*128*scale
 	position.y = startY+(i+j-1)*64*scale
 
+func updatePosition(startX,startY):
+	self.startX = startX
+	self.startY = startY
+	position.x = startX-(iPos-jPos)*128*UIscale
+	position.y = startY+(iPos+jPos-1)*64*UIscale
+
 func Move(newI,newJ):
 	if MovementRule(newI,newJ):
 		position.x = startX-(newI-newJ)*128*UIscale
@@ -27,10 +44,11 @@ func Move(newI,newJ):
 		iPos = newI
 		jPos = newJ
 		z_index = newI + newJ+1
+		return true
+	return false
 
 func MovementRule(newI,newJ):
-	return (abs(newI-iPos) == 1 && abs(newJ-jPos) == 0) \
-		|| (abs(newI-iPos) == 0 && abs(newJ-jPos) == 1)
+	return moveRule.has([iPos-newI,jPos-newJ])
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

@@ -1,9 +1,9 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dop0vsasjrm5b"]
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c0gu0easor523"]
 
-[ext_resource type="Shader" path="res://OutlineShader.gdshader" id="1_bbor6"]
+[ext_resource type="Shader" path="res://RainbowOutlineShader.gdshader" id="1_8eyfi"]
 
 [resource]
-shader = ExtResource("1_bbor6")
+shader = ExtResource("1_8eyfi")
 shader_parameter/line_thickness = 1.0
 shader_parameter/sin_frequency = 0.5
 shader_parameter/sin_offset = 0.0
