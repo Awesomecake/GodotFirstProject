@@ -15,20 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if activeCards.size() < 6 && newHand:
-		var rand = randi_range(0,cardFileLocations.size()-1)
-		var card = load("res://Prefabs/CardPrefabs/" + cardFileLocations[rand]).instantiate()
-		activeCards.append(card)
-		add_child(card);
-		card.z_index = activeCards.size()+100
-		card.position.y = 550 + 9*abs(3-activeCards.size())**2;
-		card.position.x = activeCards.size()*120+225
-		card.rotation = 2*PI - 3*PI/20 +PI/20*activeCards.size()
-		card.get_child(0).card_clicked.connect(UpdatePlayerMove)
-		UpdateCardHand()
-		
-		if activeCards.size() == 6:
-			newHand = false;
+	GenerateHand()
 	
 	var cardClicked = false;
 	for item in activeCards:
@@ -49,6 +36,22 @@ func dir_contents(path):
 		while file_name != "":
 			cardFileLocations.append(file_name);
 			file_name = dir.get_next()
+
+func GenerateHand():
+	if activeCards.size() < 6 && newHand:
+		var rand = randi_range(0,cardFileLocations.size()-1)
+		var card = load("res://Prefabs/CardPrefabs/" + cardFileLocations[rand]).instantiate()
+		activeCards.append(card)
+		add_child(card);
+		card.z_index = activeCards.size()+100
+		card.position.y = 550 + 9*abs(3-activeCards.size())**2;
+		card.position.x = activeCards.size()*120+225
+		card.rotation = 2*PI - 3*PI/20 +PI/20*activeCards.size()
+		card.get_child(0).card_clicked.connect(UpdatePlayerMove)
+		UpdateCardHand()
+		
+		if activeCards.size() == 6:
+			newHand = false;
 
 func UpdatePlayerMove(moveArray,sender):
 	GameManager.selectedCard = sender
