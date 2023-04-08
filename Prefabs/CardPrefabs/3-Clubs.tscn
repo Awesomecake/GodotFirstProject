@@ -7,8 +7,7 @@
 position = Vector2(629, 189)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("1_pyw76")
-metadata/iDist = 3
-metadata/jDist = 0
+metadata/MovementArray = PackedVector2Array(3, 0, -3, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_xwllj")

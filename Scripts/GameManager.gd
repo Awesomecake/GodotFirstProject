@@ -69,7 +69,6 @@ func MovePlayer(newI,newJ):
 				HighlightMoveruleTiles(i,j,Color(1,1,1))
 	if player.Move(newI,newJ):
 		selectedCard.queue_free()
-		player.moveRule = []
 		OffsetMap(newI-oldI,newJ-oldJ)
 		
 func OffsetMap(newI,newJ):

@@ -2,19 +2,21 @@ extends Area2D
 
 var parent
 var mouseHover
-var iDist
-var jDist
+var MovementArray = []
+var AttackArray = []
 
 var clicked
 signal card_clicked(moveArray,sender);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	parent = get_parent()
 	self.mouse_entered.connect(mouse_enter)
 	self.mouse_exited.connect(mouse_exit)
-	parent = get_parent()
-	iDist = parent.get_meta("iDist")
-	jDist = parent.get_meta("jDist")
+	if parent.has_meta("MovementArray"):
+		MovementArray = parent.get_meta("MovementArray")
+	if parent.has_meta("AttackArray"):
+		AttackArray = parent.get_meta("AttackArray")
 
 func mouse_enter():
 	mouseHover = true;
@@ -33,13 +35,15 @@ func _process(delta):
 	if Input.is_action_just_pressed("Left Click"):
 		if mouseHover && !clicked:
 			clicked = true
-			emit_signal("card_clicked",[[iDist,jDist],[-iDist,-jDist]],parent)
+			emit_signal("card_clicked",MovementArray,parent)
+			Input.action_release("Left Click")
 		elif mouseHover && clicked:
 			clicked = false
 			displayClick(clicked)
 			emit_signal("card_clicked",[],parent)
 		else:
 			clicked = false
+			emit_signal("card_clicked",[],parent)
 			displayClick(clicked)
 	
 	if clicked:

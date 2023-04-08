@@ -39,7 +39,7 @@ func Move(newI,newJ):
 	return false
 
 func MovementRule(newI,newJ):
-	return moveRule.has([iPos-newI,jPos-newJ])
+	return moveRule.has(Vector2(iPos-newI,jPos-newJ))
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
