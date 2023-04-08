@@ -6,16 +6,7 @@ var UIscale;
 var startX;
 var startY
 
-var moveRule = [
-			[2,1],
-			[2,-1],
-			[-2,1],
-			[-2,-1],
-			[1,2],
-			[1,-2],
-			[-1,2],
-			[-1,-2],
-			];
+var moveRule = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

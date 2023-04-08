@@ -6,7 +6,7 @@ var iDist
 var jDist
 
 var clicked
-signal card_clicked(moveArray);
+signal card_clicked(moveArray,sender);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -33,11 +33,11 @@ func _process(delta):
 	if Input.is_action_just_pressed("Left Click"):
 		if mouseHover && !clicked:
 			clicked = true
-			emit_signal("card_clicked",[[iDist,jDist],[-iDist,-jDist]])
+			emit_signal("card_clicked",[[iDist,jDist],[-iDist,-jDist]],parent)
 		elif mouseHover && clicked:
 			clicked = false
 			displayClick(clicked)
-			emit_signal("card_clicked",[])
+			emit_signal("card_clicked",[],parent)
 		else:
 			clicked = false
 			displayClick(clicked)

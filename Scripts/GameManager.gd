@@ -11,11 +11,11 @@ extends Node
 #			]
 
 var array = [
-			[1,1,1,1,1,1,1,1,1,1,1,1],
-			[1,1,1,1,1,1,1,1,1,1,1,1],
-			[1,1,1,1,1,1,1,1,1,1,1,1],
-			[1,1,1,1,1,1,1,1,1,1,1,1],
-			[1,1,1,1,1,1,1,1,1,1,1,1],
+			[2,2,2,2,2,1,1,1,1,1,1,1],
+			[2,1,1,1,1,1,1,1,1,1,1,1],
+			[2,1,1,1,1,1,1,1,1,1,1,1],
+			[2,1,1,1,1,1,1,1,1,1,1,1],
+			[2,1,1,1,1,1,1,1,1,1,1,1],
 			[1,1,1,1,1,1,1,1,1,1,1,1],
 			[1,1,1,1,1,1,1,1,1,1,1,1],
 			[1,1,1,1,1,1,1,1,1,1,1,1],
@@ -25,12 +25,14 @@ var array = [
 			]
 
 var TileArray = array.duplicate(true)
+var UnimportantTiles = []
 			
 var startX = 600;
 var startY = 150;
 const scaleUI = 0.33
 
 var player
+var selectedCard
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -49,6 +51,8 @@ func _ready():
 				tile.get_child(0).setPosition(startX,startY,i,j,x,array[i][j],scaleUI)
 				if array[i][j] == 1:
 					TileArray[i][j] = tile
+				else:
+					UnimportantTiles.append(tile)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -64,16 +68,17 @@ func MovePlayer(newI,newJ):
 			if !(TileArray[i][j] is int):
 				HighlightMoveruleTiles(i,j,Color(1,1,1))
 	if player.Move(newI,newJ):
+		selectedCard.queue_free()
 		player.moveRule = []
-		OffsetMap(newI,newJ)
+		OffsetMap(newI-oldI,newJ-oldJ)
 		
 func OffsetMap(newI,newJ):
 	var move = false
-	if player.position.y > 300:
-		startY -= 128*scaleUI 
+	if player.position.y > 350:
+		startY -= 64*scaleUI*(newI+newJ)
 		move = true
 	elif player.position.y < 250:
-		startY += 128*scaleUI
+		startY -= 64*scaleUI*(newI+newJ)
 		move = true
 	
 	if move:
@@ -81,8 +86,9 @@ func OffsetMap(newI,newJ):
 			for j in range(TileArray[i].size()):
 				if !(TileArray[i][j] is int):
 					TileArray[i][j].get_child(0).updatePosition(startX,startY)
+		for i in range(UnimportantTiles.size()):
+			UnimportantTiles[i].get_child(0).updatePosition(startX,startY)
 		player.updatePosition(startX,startY)
-		print(player.position.y)
 
 func HighlightMoveruleTiles(iPos,jPos,color):
 	if TileArray.size() > iPos && iPos >= 0 \
