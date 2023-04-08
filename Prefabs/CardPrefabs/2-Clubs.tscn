@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://cd1lji7817v8k"]
+[gd_scene load_steps=3 format=3 uid="uid://hxx8bg4a3k6a"]
 
 [ext_resource type="Texture2D" uid="uid://bh105y33egior" path="res://Sprites/PlayingCards/Clovers_2_white.png" id="1_hyxci"]
 [ext_resource type="Script" path="res://Scripts/CardData.gd" id="3_ckpmx"]

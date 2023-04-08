@@ -47,7 +47,7 @@ func _ready():
 				var tile = preload("res://Prefabs/Tile.tscn").instantiate()
 				add_child(tile)
 				tile.z_index = i+j
-				tile.get_child(0).tile_clicked.connect(MovePlayer)
+				tile.get_child(0).tile_clicked.connect(ActivatePlayer)
 				tile.get_child(0).setPosition(startX,startY,i,j,x,array[i][j],scaleUI)
 				if array[i][j] == 1:
 					TileArray[i][j] = tile
@@ -58,8 +58,10 @@ func _ready():
 func _process(delta):
 	for rule in player.moveRule:
 		HighlightMoveruleTiles(player.iPos-rule[0],player.jPos-rule[1],Color(0.5,0.5,0.5))
+	for rule in player.attackRule:
+		HighlightMoveruleTiles(player.iPos-rule[0],player.jPos-rule[1],Color(1,0.5,0.5))
 
-func MovePlayer(newI,newJ):
+func ActivatePlayer(newI,newJ):
 	var oldI = player.iPos
 	var oldJ = player.jPos
 	
@@ -70,6 +72,8 @@ func MovePlayer(newI,newJ):
 	if player.Move(newI,newJ):
 		selectedCard.queue_free()
 		OffsetMap(newI-oldI,newJ-oldJ)
+	if player.Attack(newI,newJ):
+		selectedCard.queue_free()
 		
 func OffsetMap(newI,newJ):
 	var move = false

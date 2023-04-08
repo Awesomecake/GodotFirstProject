@@ -53,11 +53,14 @@ func GenerateHand():
 		if activeCards.size() == 6:
 			newHand = false;
 
-func UpdatePlayerMove(moveArray,sender):
+func UpdatePlayerMove(moveArray,attackArray,sender):
 	GameManager.selectedCard = sender
 	for rule in player.moveRule:
 		GameManager.HighlightMoveruleTiles(player.iPos-rule[0],player.jPos-rule[1],Color(1,1,1))
+	for rule in player.attackRule:
+		GameManager.HighlightMoveruleTiles(player.iPos-rule[0],player.jPos-rule[1],Color(1,1,1))
 	player.moveRule = moveArray
+	player.attackRule = attackArray
 	
 func UpdateCardHand():
 	var offset = 1+(5-activeCards.size())/2.0;
